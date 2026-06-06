@@ -1,5 +1,6 @@
 import pygame as p
 from pygame import mixer
+import pygame as p
 p.mixer.init()
 
 bg=p.image.load(("graphics/bg.jpg"))
