@@ -1,11 +1,12 @@
 
 import pygame as p
 import settings as s
+
 show_hq_text = False
 hq_x=0
 hq_y=0
 robots=[[0,0]]
-planets=[[300,300,s.eternium,s.etmap]]
+planets=[[300, 300, s.eternium, s.etmap]]
 def button (text,x,y,color,sx,sy):
         text=p.font.SysFont("arial",30).render(text,True,color)
         screen.blit(text,(x,y))
@@ -25,6 +26,7 @@ shq=False
 ettxt=False
 return_to_hq=False
 reaserch_open = False
+showingninjua_map=False
 #####################################
 p.mixer.music.play(-1)  
 #####################################
@@ -45,7 +47,7 @@ while run:
 
 ################  clicking events  ###########
         for planet in planets:
-            screen.blit(planet[2], (planet[0], planet[1]))
+            
             p_rect = p.Rect(planet[0] + s.x1, planet[1] + s.y1, planet[2].get_width(), planet[2].get_height())
 
 
@@ -83,6 +85,7 @@ while run:
             if mouse_x>=hq_x and mouse_x<=hq_x+s.hq.get_width() and mouse_y>=hq_y and mouse_y<=hq_y+s.hq.get_height() and p.mouse.get_pressed()[0] and hqplaced==True :
                 text4=p.font.SysFont("arial",30).render("HQ",True,s.white)
                 screen.blit(text4,(hq_x,hq_y-30))
+            
 #### quit event     
         if event.type==p.QUIT:
             run=False
@@ -90,7 +93,7 @@ while run:
 ##############################################
     
     screen.fill(s.black)
-
+    
     for i in range(s.WIDTH//s.bg.get_width()-100,s.WIDTH//s.bg.get_width()+100):
         for bz in range(s.HEIGHT//s.bg.get_height()-100,s.HEIGHT//s.bg.get_height()+100):
             screen.blit(s.bg,(i*s.bg.get_width()+s.x1,bz*s.bg.get_height()+s.y1))
@@ -102,6 +105,18 @@ while run:
    
     screen.blit(s.eternium,(s.x1+50,s.y1+100))                                             #|
 ##################################    linked to boolean variables   #####################
+    if s.telescope_level>=2:        
+        screen.blit(s.ninjua,(s.x1+200,s.y1+200))
+        p.Rect( (s.x1+200, s.y1+200, s.ninjua.get_width(), s.ninjua.get_height()))
+        if mouse_x>=s.x1+200 and mouse_x<=s.x1+200+s.ninjua.get_width() and mouse_y>=s.y1+200 and mouse_y<=s.y1+200+s.ninjua.get_height() and p.mouse.get_pressed()[0]:
+            
+            showingninjua_map=True
+        if showingninjua_map:
+            screen.blit(s.nunjua_map,(0,0))
+            close_button = button("close",s.WIDTH-150,s.HEIGHT-70,s.red,100,50)
+            if close_button.collidepoint(mouse_x, mouse_y) and p.mouse.get_pressed()[0]:
+                showingninjua_map = False
+
     #  if map is open
     a=1200
     ya=300
